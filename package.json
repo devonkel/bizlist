@@ -1,6 +1,14 @@
 {
   "name": "bizlist",
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "description": "Business List with CouchDB",
+  "author": "Devon Kelly",
+  "license": "MIT",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/devonkel/bizlist.git"
+  },
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
@@ -12,6 +20,12 @@
     "express": "~4.13.4",
     "jade": "~1.11.0",
     "morgan": "~1.7.0",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "express-messages": "*",
+    "express-session": "*",
+    "connect-flash": "*",
+    "express-validator": "*",
+    "node-couchdb": "*",
+    "node-uuid": "*"
   }
 }
