@@ -5,8 +5,16 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var session = require('express-session'),
+    expressValidator = require('express-validator'),
+    flash = require('connect-flash'),
+    uuid = require('node-uuid');
+
+var nodeCouchDB = require('node-couchdb');
+var couch = new nodeCouchDB('localhost', 5984);
+
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var businesses = require('./routes/businesses');
 
 var app = express();
 
@@ -22,8 +30,33 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Express Session
+app.use(session({
+  secret: 'secret',
+  saveUninitialized: true,
+  resave: true
+}));
+
+// Validator
+app.use(expressValidator({
+  errorFormatter: function(param, msg, value) {
+    var namespace = param.split('.'),
+        root = namespace.shift(),
+        formParam = root;
+    while(namespace.length) {
+      formParam += '[' + namespace.shift() + ']';
+    }
+    return {
+      param: formParam,
+      msg: msg,
+      value: value
+    }
+  }
+}));
+
 app.use('/', routes);
-app.use('/users', users);
+
+app.use('/businesses', businesses);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

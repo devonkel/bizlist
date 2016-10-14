@@ -1,128 +1,49 @@
 doctype html
-html.no-js(lang='en')
+html
   head
-    meta(charset='utf-8')
-    meta(name='viewport', content='width=device-width, initial-scale=1.0')
-    title Foundation | Welcome
+    title=title
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='/bower_components/foundation/css/foundation.min.css')
-    
   body
-    // Start Top Bar
-    .top-bar
-      .top-bar-left
-        ul.menu
-          li.menu-text Yeti Agency
-      .top-bar-right
-        ul.menu
+  .row
+    .large-12.columns
+      .nav-bar.right
+        ul.button-group
           li
-            a(href='#') One
+            a.button(href='/') Home
           li
-            a(href='#') Two
+            a.button(href='/businesses') View All
           li
-            a(href='#') Three
-          li
-            a(href='#') Four
-    // End Top Bar
-    .callout.large.primary
-      .row.column.text-center
-        h1 Our Blog
-    #content.row
-      .medium-8.columns
-        .blog-post
-          h3
-            | Awesome blog post title
-            small 3/6/2015
-          img.thumbnail(src='http://placehold.it/850x350')
-          p
-            | Praesent id metus massa, ut blandit odio. Proin quis tortor orci. Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu ullamcorper orci. Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque faucibus vestibulum. Nulla at nulla justo, eget luctus.
-          .callout
-            ul.menu.simple
-              li
-                a(href='#') Author: Mike Mikers
-              li
-                a(href='#') Comments: 3
-        .blog-post
-          h3
-            | Awesome blog post title
-            small 3/6/2015
-          img.thumbnail(src='http://placehold.it/850x350')
-          p
-            | Praesent id metus massa, ut blandit odio. Proin quis tortor orci. Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu ullamcorper orci. Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque faucibus vestibulum. Nulla at nulla justo, eget luctus.
-          .callout
-            ul.menu.simple
-              li
-                a(href='#') Author: Mike Mikers
-              li
-                a(href='#') Comments: 3
-        .blog-post
-          h3
-            | Awesome blog post title
-            small 3/6/2015
-          img.thumbnail(src='http://placehold.it/850x350')
-          p
-            | Praesent id metus massa, ut blandit odio. Proin quis tortor orci. Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu ullamcorper orci. Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque faucibus vestibulum. Nulla at nulla justo, eget luctus.
-          .callout
-            ul.menu.simple
-              li
-                a(href='#') Author: Mike Mikers
-              li
-                a(href='#') Comments: 3
-        .blog-post
-          h3
-            | Awesome blog post title
-            small 3/6/2015
-          img.thumbnail(src='http://placehold.it/850x350')
-          p
-            | Praesent id metus massa, ut blandit odio. Proin quis tortor orci. Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu ullamcorper orci. Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque faucibus vestibulum. Nulla at nulla justo, eget luctus.
-          .callout
-            ul.menu.simple
-              li
-                a(href='#') Author: Mike Mikers
-              li
-                a(href='#') Comments: 3
-      .medium-3.columns(data-sticky-container='')
-        .sticky(data-sticky='', data-anchor='content')
-          h4 Categories
-          ul
-            li
-              a(href='#') Skyler
-            li
-              a(href='#') Jesse
-            li
-              a(href='#') Mike
-            li
-              a(href='#') Holly
-          h4 Authors
-          ul
-            li
-              a(href='#') Skyler
-            li
-              a(href='#') Jesse
-            li
-              a(href='#') Mike
-            li
-              a(href='#') Holly
-    .row.column
-      ul.pagination(role='navigation', aria-label='Pagination')
-        li.disabled Previous
-        li.current
-          span.show-for-sr You're on page
-          |  1
+            a.button(href='/businesses/add') Add Listing
+      h1
+        | Bizlist
+      hr
+  .row
+    .large-9.columns(role='content')
+      block content
+    aside.large-3.columns
+      h5 Categories
+      ul.side-nav
         li
-          a(href='#', aria-label='Page 2') 2
+          a(href='/businesses/category/Accounting') Accounting
         li
-          a(href='#', aria-label='Page 3') 3
+          a(href='/businesses/category/Construction') Construction
         li
-          a(href='#', aria-label='Page 4') 4
-        li.ellipsis
+          a(href='/businesses/category/Education') Education
         li
-          a(href='#', aria-label='Page 12') 12
+          a(href='/businesses/category/Food') Food
         li
-          a(href='#', aria-label='Page 13') 13
+          a(href='/businesses/category/Healthcare') Healthcare
         li
-          a(href='#', aria-label='Next page') Next
+          a(href='/businesses/category/Technology') Technology
+        li
+          a(href='/businesses/category/Other') Other
+  footer.row
+    .large-12.columns
+      hr
+      .row
+        .large-6.columns
+          p © Copyright Bizlist: Devon Enterprises, Inc.
+        .large-6.columns
     script(src='/bower_components/jquery/dist/jquery.min.js')
-    script(src='/bower_components/foundation/js/foundation.js')
-    script.
-      $(document).foundation();
+    script(src='/bower_components/foundation/js/foundation.min.js')
