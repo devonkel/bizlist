@@ -2,4 +2,61 @@ extends layout
 
 block content
   h1
-    | Add Business
+    | All Businesses
+  form(method='post', action='/businesses/add')
+    .row
+      .large-12.columns
+        label
+          | Business Name
+          input(type='text', name='name', placeholder='Business Name')
+    .row
+      .large-12.columns
+        label
+          | category
+          select(name='category')
+            option(value='0') Select a category
+            option(value='Accounting') Accounting
+            option(value='Construction') Construction
+            option(value='Food') Food
+            option(value='Healthcare') Healthcare
+            option(value='Real Estate') Real Estate
+            option(value='Technology') Technology
+            option(value='Other') Other
+    .row
+      .large-12.columns
+        label
+          | Website
+          input(type='text', name='website', placeholder='http://')
+    .row
+      .large-12.columns
+        label
+          | Email
+          input(type='email', name='email', placeholder='name@gmail.com')
+    .row
+      .large-12.columns
+        label
+          | Phone
+          input(type='text', name='phone', placeholder='999.999.9999')
+    .row
+      .large-12.columns
+        label
+          | Street Address
+          input(type='text', name='address', placeholder='Street Address')
+    .row
+      .large-12.columns
+        label
+          | City
+          input(type='text', name='city', placeholder='City')
+    .row
+      .large-12.columns
+        label
+          | State
+          input(type='text', name='state', placeholder='State')
+    .row
+      .large-12.columns
+        label
+          | Zip Code
+          input(type='text', name='zip', placeholder='99999-9999')
+    .row
+      .large-12.columns
+        input(type='submit', value='Submit', class='button')

@@ -4,11 +4,10 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
-var session = require('express-session'),
-    expressValidator = require('express-validator'),
-    flash = require('connect-flash'),
-    uuid = require('node-uuid');
+var session = require('express-session');
+var expressValidator = require('express-validator');
+var flash = require('connect-flash');
+var uuid = require('node-uuid');
 
 var nodeCouchDB = require('node-couchdb');
 var couch = new nodeCouchDB('localhost', 5984);
@@ -32,30 +31,42 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Express Session
 app.use(session({
-  secret: 'secret',
-  saveUninitialized: true,
-  resave: true
+    secret: 'secret',
+    saveUninitialized: true,
+    resave: true
 }));
 
-// Validator
+// Express Validator
 app.use(expressValidator({
   errorFormatter: function(param, msg, value) {
-    var namespace = param.split('.'),
-        root = namespace.shift(),
-        formParam = root;
+      var namespace = param.split('.')
+      , root    = namespace.shift()
+      , formParam = root;
+
     while(namespace.length) {
       formParam += '[' + namespace.shift() + ']';
     }
     return {
-      param: formParam,
-      msg: msg,
-      value: value
-    }
+      param : formParam,
+      msg   : msg,
+      value : value
+    };
+  },
+  customValidators: {
+   notZero: function(value) {
+       return (value !== '0');
+   }
   }
 }));
 
-app.use('/', routes);
+// Connect-Flash
+app.use(flash());
+app.use(function (req, res, next) {
+  res.locals.messages = require('express-messages')(req, res);
+  next();
+});
 
+app.use('/', routes);
 app.use('/businesses', businesses);
 
 // catch 404 and forward to error handler

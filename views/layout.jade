@@ -20,6 +20,11 @@ html
       hr
   .row
     .large-9.columns(role='content')
+      != messages()
+      ul.errors
+        if errors
+          each error, i in errors
+            li.alert.alert-danger #{error.msg}
       block content
     aside.large-3.columns
       h5 Categories
