@@ -2,14 +2,21 @@ extends layout
 
 block content
   h1
-    | Business Names on File
+    | #{title}
   ul.listings
-    each business, i in businesses
-      li 
-        a(href='/businesses/show/#{business.value._id}') #{business.value.name}
+    if businesses
+      each business, i in businesses
+        li 
+          a(href='/businesses/show/#{business.value._id}') #{business.value.name}
+          br
+          | Location: #{business.value.city}, #{business.value.state} #{business.value.zip}
+          br
+          | Phone: #{business.value.phone}
+          br
+          | URL: #{business.value.website}
+          br
+          | Category: #{business.value.category} 
+    else
+      li
         br
-        | Location: #{business.value.city}, #{business.value.state} #{business.value.zip}
-        br
-        | Phone: #{business.value.phone}
-        br
-        | URL: #{business.value.website}
+        | No data found

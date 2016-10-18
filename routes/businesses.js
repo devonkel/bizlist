@@ -7,15 +7,20 @@ var validator = require('express-validator');
 var dbName = "bizlist";
 var viewByNameURL = "_design/name/_view/vw_byName";
 var viewByIDURL = "_design/id/_view/vw_byID";
+var viewByCategoryURL = "_design/category/_view/vw_byCategory";
+var queryOptions = {};
 
 router.get('/', function(req, res, next) {
-  var dbName = "bizlist";
-  var viewByNameURL = "_design/name/_view/vw_byName";
-  var queryOptions = {};
-  couch.get(dbName, viewByNameURL, queryOptions).then(({data, headers, status}) => {
-    res.render('businesses', {businesses: data.rows});
+  couch.get(dbName, viewByNameURL, {}).then(({data, headers, status}) => {
+    res.render('businesses', {title: "Businesses: All", businesses: data.rows});
   }, err => {
-    res.send(err.code);
+    console.log('#err.code='+err.code+'#');
+    console.log('#err.body='+err.body+'#');
+    if (err.code == "EDOCMISSING"){
+      res.render('businesses', {title: "Businesses: All", businesses: ""});
+    } else {
+      res.send(err.code);
+    }
   });
 });
 
@@ -27,7 +32,7 @@ router.get('/show/:id', function(req, res, next) {
   couch.get(dbName, req.params.id).then(({data, headers, status}) => {
     res.render('show', {business: data});
   }, err => {
-    console.log('Error in couch.get/show/:id');
+    console.log('Error in couch.get/show/:id', req.params.id);
     res.send(err.code);
   });
 });
@@ -68,7 +73,16 @@ router.post('/edit/:id', function(req, res, next) {
 });
 
 router.get('/category/:category', function(req, res, next) {
-  res.render('businesses');
+  var cdbURL = viewByCategoryURL+'?startkey="'+req.params.category+'"&endkey="'+req.params.category+'"';
+  couch.get(dbName, cdbURL).then(({data, headers, status}) => {
+    res.render('businesses', {title: "Businesses: "+req.params.category, businesses: data.rows});
+  }, err => {
+    if (err.code == "EDOCMISSING"){
+      res.render('businesses', {title: "Businesses: "+req.params.category, businesses: null});
+    } else {
+      res.send(err.code);
+    }
+  });
 });
 
 router.post('/add', function(req, res, next) {
@@ -95,7 +109,7 @@ router.post('/add', function(req, res, next) {
       zip: req.body.zip
     }).then(({data, headers, status}) => {
       req.flash('Business Updated');
-      res.redirect(200, '/businesses/show/:id');
+      res.redirect('/businesses/show/' + data.id);
     }, err => {
       console.log('!!! ERROR on business insert into couch', err.code);
       res.send(err.code);
