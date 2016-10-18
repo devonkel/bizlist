@@ -9,15 +9,11 @@ var viewByNameURL = "_design/name/_view/vw_byName";
 var viewByIDURL = "_design/id/_view/vw_byID";
 
 router.get('/', function(req, res, next) {
-  res.render('businesses');
-});
-
-router.get('/busall', function(req, res, next) {
   var dbName = "bizlist";
   var viewByNameURL = "_design/name/_view/vw_byName";
   var queryOptions = {};
   couch.get(dbName, viewByNameURL, queryOptions).then(({data, headers, status}) => {
-    res.render('busall', {businesses: data.rows});
+    res.render('businesses', {businesses: data.rows});
   }, err => {
     res.send(err.code);
   });
@@ -114,7 +110,7 @@ router.post('/delete/:id', function(req, res, next){
     couch.del(dbName, req.params.id, rev).then(({data, headers, status}) => {
       console.log('DDD Successfully deleted.');
       req.flash('success', 'Business Removed');
-      res.redirect('/businesses/busall');
+      res.redirect('/businesses');
     }, err => {
       console.log('### Error in /delete:couch.del: '+dbName+'|'+'|'+req.params.id+'|'+rev);
       res.send(err.code);
