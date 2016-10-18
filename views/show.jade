@@ -2,4 +2,20 @@ extends layout
 
 block content
   h1
-    | Business Name - Show
+    | #{business.name}
+
+  h5
+    ul.listings
+      li
+        | #{business.address}
+        br
+        | #{business.city}, #{business.state} #{business.zip}
+        br
+        | #{business.phone}
+        br
+        a(href="#{business.website}") #{business.website}
+  br
+  a(href="/businesses/edit/#{business._id}" class="button" value="Edit") Edit
+  
+  form(method="post", action="/businesses/delete/#{business._id}")
+    input.button.alert(type='submit', value='Delete')

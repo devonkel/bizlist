@@ -1,0 +1,23 @@
+$(document).ready(function(){
+    $('.delete-bus').click(function(event){
+        $target = $(event.target)
+        $.ajax({
+            type: 'DELETE',
+            url: '/delete/' + $target.attr('data-bus-id'),
+            // data: {
+            //     _csrf: $target.attr('data-csrf')
+            // },
+            success: function(response){
+              console.log('BURP!  Deleted!');
+              //$target.parent().parent().remove();
+              alert('Business removed');
+              window.location.href = '/businesses/busall';
+            },
+            error: function(error){
+              console.log('app.js error: ', error);
+              alert(error);
+              console.log('app.js error: ', error);
+            }
+        })
+    });
+})

@@ -3,3 +3,61 @@ extends layout
 block content
   h1
     | Edit Business
+  form(method='post', action='/businesses/edit/#{business._id}')
+    .row
+      .large-12.columns
+        label
+          | Business Name
+          input(type='text', name='name', value='#{business.name}')
+    .row
+      .large-12.columns
+        label
+          | category
+          select(name='category')
+            option(value='0') Select a category
+            option(value='Accounting') Accounting
+            option(value='Construction') Construction
+            option(value='Food') Food
+            option(value='Healthcare') Healthcare
+            option(value='Real Estate') Real Estate
+            option(value='Technology') Technology
+            option(value='Other') Other
+    .row
+      .large-12.columns
+        label
+          | Website
+          input(type='text', name='website', value='#{business.website}')
+    .row
+      .large-12.columns
+        label
+          | Email
+          input(type='email', name='email', value='#{business.email}')
+    .row
+      .large-12.columns
+        label
+          | Phone
+          input(type='text', name='phone', value='#{business.phone}')
+    .row
+      .large-12.columns
+        label
+          | Street Address
+          input(type='text', name='address', value='#{business.address}')
+    .row
+      .large-12.columns
+        label
+          | City
+          input(type='text', name='city', value='#{business.city}')
+    .row
+      .large-12.columns
+        label
+          | State
+          input(type='text', name='state', value='#{business.state}')
+    .row
+      .large-12.columns
+        label
+          | Zip Code
+          input(type='text', name='zip', value='#{business.zip}')
+    .row
+      .large-12.columns
+        input(type='submit', value='Update', class='button')
+        a(href="/show/#{business._id}" class="button" value="Cancel") Cancel

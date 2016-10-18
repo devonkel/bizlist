@@ -3,3 +3,9 @@ extends layout
 block content
   h1
     | All Businesses
+.row
+  .large-9.columns(role='content')
+    ul.businesses
+      if businesses
+        each business, i in businesses
+          li {business.name}
